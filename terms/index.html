@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Service — KovaMesh</title>
+<meta name="description" content="KovaMesh Terms of Service: the service, acceptable use, billing, liability, and governing law. Last updated 21 November 2026.">
+<meta property="og:title" content="Terms of Service — KovaMesh">
+<meta property="og:description" content="The KovaMesh service, acceptable use, billing, liability, and governing law.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bntam.github.io/kovamesh/terms/">
+<meta property="og:image" content="https://bntam.github.io/kovamesh/assets/opengraph-1200x630.png">
+<link rel="icon" type="image/svg+xml" href="../assets/logo-mark.svg">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../"><img src="../assets/logo-mark.svg" alt="KovaMesh logo" width="30" height="30"> KovaMesh</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../#product">Product</a>
+      <a href="../#architecture">Architecture</a>
+      <a href="../#benchmarks">Benchmarks</a>
+      <a href="../#pricing">Pricing</a>
+      <a href="../docs/">Docs</a>
+      <a href="https://github.com/bntam/kovamesh-verify">GitHub</a>
+      <a class="btn btn-primary btn-sm nav-cta" href="../#pricing">Get started free</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="page">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="../">Home</a> / Terms of Service</p>
+    <h1>Terms of Service</h1>
+    <p class="muted">Last updated: <strong>21 November 2026</strong> · KovaMesh, Ho Chi Minh City, Vietnam · Contact: <a href="mailto:ngoctam.699@gmail.com">ngoctam.699@gmail.com</a></p>
+    <p>These terms govern your use of bntam.github.io/kovamesh/ (future custom domain: kovamesh.dev), the open-source <code>kovamesh-verify</code> CLI, and the hosted KovaMesh service (together, the “Service”). By using the Service you agree to these terms. If you use the Service on behalf of a company, you confirm you have authority to bind that company.</p>
+
+    <h2>1. The service</h2>
+    <ul>
+      <li><strong>Open-source CLI (Free).</strong> <code>kovamesh-verify</code> is provided under the MIT License, as published in its repository. The MIT License governs the CLI; these terms govern the website and hosted service.</li>
+      <li><strong>Hosted plans (Startup / Enterprise).</strong> Paid plans add hosted PR verification, smoke tests, CI triage, and evidence storage as described on the <a href="../#pricing">pricing page</a>. Features may evolve; we will not remove a feature from a paid plan without notice during its paid term.</li>
+      <li><strong>Availability.</strong> We aim for high availability but the Service is provided “as is” and “as available”. The Enterprise plan carries a 99.9% uptime SLA set out in its agreement; other plans carry no uptime guarantee.</li>
+    </ul>
+
+    <h2>2. Your account and your code</h2>
+    <ul>
+      <li>You are responsible for keeping your account credentials safe and for activity under your account.</li>
+      <li>You keep all rights to your code, repositories, and data. You grant us only the licence needed to run the Service for you — to fetch the PRs and diffs you connect, execute checks, and return evidence.</li>
+      <li>You confirm you have the right to connect the repositories you connect, and that doing so does not breach your own obligations to your employer, clients, or users.</li>
+      <li>Do not put production secrets, passwords, or personal data of third parties into check specs or evidence unless the check genuinely needs them; use your CI’s secret store instead.</li>
+    </ul>
+
+    <h2>3. Acceptable use</h2>
+    <p>You must not use the Service to:</p>
+    <ul>
+      <li>Break the law, infringe intellectual-property or privacy rights, or harass or harm others.</li>
+      <li>Probe, scan, or attack systems you do not own or have permission to test — KovaMesh verifies <em>your</em> code, not other people’s infrastructure.</li>
+      <li>Upload malware, or use the Service to distribute it.</li>
+      <li>Abuse the Service, including circumventing plan limits, reselling access without agreement, or overloading the service in a way that degrades it for others.</li>
+      <li>Misrepresent verification results — for example, editing an evidence bundle to claim a check passed when it did not.</li>
+    </ul>
+    <p>We may suspend or terminate an account that breaches this section, after notice where practical.</p>
+
+    <h2>4. Billing (paid plans)</h2>
+    <ul>
+      <li>Prices are as shown on the pricing page, in USD, excluding applicable taxes.</li>
+      <li>Startup trials last 14 days and need no card. If you add a card and continue past the trial, billing starts at the end of the trial.</li>
+      <li>Subscriptions renew monthly until cancelled. Cancel anytime; access continues until the end of the paid period, and the open-source CLI keeps working regardless.</li>
+      <li>Refunds are handled case by case — write to <a href="mailto:ngoctam.699@gmail.com">ngoctam.699@gmail.com</a> and we will answer within 5 business days.</li>
+    </ul>
+
+    <h2>5. Our liability — the honest limit</h2>
+    <p>KovaMesh helps you catch bugs before they ship; it cannot guarantee it will catch every bug, and a PASS verdict is evidence from the checks you defined, not a warranty that your software is defect-free. To the maximum extent permitted by law:</p>
+    <ul>
+      <li>Our total liability for any claim arising from the Service is limited to the fees you paid us in the 12 months before the claim (or, for the Free plan, US $100).</li>
+      <li>We are not liable for indirect or consequential loss, including lost profits, lost data, or downtime of your own systems.</li>
+      <li>Nothing in these terms limits liability that cannot be limited by law, including for fraud or wilful misconduct.</li>
+    </ul>
+
+    <h2>6. Changes and termination</h2>
+    <ul>
+      <li>We may update these terms; the “Last updated” date above will change, and material changes will be noted on the site or by email to active users.</li>
+      <li>You may stop using the Service at any time. We may terminate or suspend the Service with reasonable notice, except where immediate action is needed for security or legal reasons.</li>
+      <li>On termination, hosted evidence is handled as described in the <a href="../privacy/">Privacy Policy</a> (retention, then deletion).</li>
+    </ul>
+
+    <h2>7. Governing law</h2>
+    <p>These terms are governed by the laws of Vietnam. Any dispute arising from the Service will first be addressed by good-faith discussion between the parties; if that fails, it will be resolved by the competent courts of Ho Chi Minh City, Vietnam. Where mandatory consumer-protection law in your country applies, it applies in addition to these terms.</p>
+
+    <h2>8. Contact</h2>
+    <p>KovaMesh · Ho Chi Minh City, Vietnam · <a href="mailto:ngoctam.699@gmail.com">ngoctam.699@gmail.com</a></p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand foot-brand" href="../"><img src="../assets/logo-mark.svg" alt="KovaMesh logo" width="30" height="30"> KovaMesh</a>
+        <p class="muted small foot-tag">Multi-agent QA that actually runs your code. Every PR, verified at runtime.</p>
+        <p class="small"><a href="mailto:ngoctam.699@gmail.com">ngoctam.699@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="../#product">Product</a>
+        <a href="../#architecture">Architecture</a>
+        <a href="../#benchmarks">Benchmarks</a>
+        <a href="../#pricing">Pricing</a>
+        <a href="../docs/">Docs / Quickstart</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="https://github.com/bntam">GitHub — github.com/bntam</a>
+        <a href="https://www.linkedin.com/company/kovamesh">LinkedIn — /company/kovamesh</a>
+        <a href="https://x.com/kovameshdev">X — @kovameshdev</a>
+        <a href="../privacy/">Privacy Policy</a>
+        <a href="./">Terms of Service</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 KovaMesh. All rights reserved.</span>
+      <span>Ho Chi Minh City, Vietnam · Built for global dev teams</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

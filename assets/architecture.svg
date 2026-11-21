@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="archTitle archDesc">
+  <title id="archTitle">KovaMesh architecture</title>
+  <desc id="archDesc">GitHub pull request flows to the KovaMesh Planner, which fans out to Verifier agents running in an isolated Docker runtime sandbox. Results become signed evidence, posted back to the PR, Slack, and CI.</desc>
+  <rect width="1200" height="520" rx="16" fill="#0B1220"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00E5A0"/></marker>
+    <marker id="arrowIndigo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7C8CFF"/></marker>
+  </defs>
+  <text x="40" y="44" font-family="Inter, system-ui, sans-serif" font-size="15" letter-spacing="3" fill="#8A9BB5">KOVAMESH RUNTIME — HOW A PR GETS VERIFIED</text>
+  <!-- Row 1 -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="70" width="200" height="96" rx="12" fill="#111A2E" stroke="#24344F"/>
+    <text x="60" y="104" font-size="15" font-weight="700" fill="#E6EDF7">GitHub PR</text>
+    <text x="60" y="128" font-size="13" fill="#8A9BB5">Opened / updated</text>
+    <text x="60" y="148" font-size="13" fill="#8A9BB5">Diff + CI status</text>
+    <rect x="300" y="70" width="200" height="96" rx="12" fill="#111A2E" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="320" y="104" font-size="15" font-weight="700" fill="#E6EDF7">Planner agent</text>
+    <text x="320" y="128" font-size="13" fill="#8A9BB5">Reads diff, picks checks</text>
+    <text x="320" y="148" font-size="13" fill="#8A9BB5">Plans the run</text>
+    <rect x="560" y="70" width="260" height="96" rx="12" fill="#111A2E" stroke="#7C8CFF" stroke-width="1.5"/>
+    <text x="580" y="104" font-size="15" font-weight="700" fill="#E6EDF7">Verifier agents × 3</text>
+    <text x="580" y="128" font-size="13" fill="#8A9BB5">Build · API · UI smoke</text>
+    <text x="580" y="148" font-size="13" fill="#8A9BB5">Run in parallel</text>
+    <rect x="880" y="70" width="280" height="96" rx="12" fill="#111A2E" stroke="#24344F"/>
+    <text x="900" y="104" font-size="15" font-weight="700" fill="#E6EDF7">Runtime sandbox</text>
+    <text x="900" y="128" font-size="13" fill="#8A9BB5">Isolated Docker container</text>
+    <text x="900" y="148" font-size="13" fill="#8A9BB5">Real app, real HTTP</text>
+  </g>
+  <line x1="240" y1="118" x2="298" y2="118" stroke="#00E5A0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="500" y1="118" x2="558" y2="118" stroke="#00E5A0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="820" y1="118" x2="878" y2="118" stroke="#00E5A0" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- Row 2 -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <rect x="40" y="250" width="280" height="96" rx="12" fill="#0E1A2E" stroke="#00E5A0" stroke-width="1.5"/>
+    <text x="60" y="284" font-size="15" font-weight="700" fill="#E6EDF7">Evidence bundle</text>
+    <text x="60" y="308" font-size="13" fill="#8A9BB5">Logs · traces · screenshots</text>
+    <text x="60" y="328" font-size="13" fill="#8A9BB5">PASS / FAIL per check</text>
+    <rect x="380" y="250" width="280" height="96" rx="12" fill="#111A2E" stroke="#24344F"/>
+    <text x="400" y="284" font-size="15" font-weight="700" fill="#E6EDF7">Verdict + PR comment</text>
+    <text x="400" y="308" font-size="13" fill="#8A9BB5">“Verified at runtime”</text>
+    <text x="400" y="328" font-size="13" fill="#8A9BB5">or exact failing step</text>
+    <rect x="720" y="250" width="200" height="96" rx="12" fill="#111A2E" stroke="#24344F"/>
+    <text x="740" y="284" font-size="15" font-weight="700" fill="#E6EDF7">Slack</text>
+    <text x="740" y="308" font-size="13" fill="#8A9BB5">Triage thread</text>
+    <text x="740" y="328" font-size="13" fill="#8A9BB5">on failure</text>
+    <rect x="960" y="250" width="200" height="96" rx="12" fill="#111A2E" stroke="#24344F"/>
+    <text x="980" y="284" font-size="15" font-weight="700" fill="#E6EDF7">CI / GitHub Actions</text>
+    <text x="980" y="308" font-size="13" fill="#8A9BB5">Check run + exit code</text>
+    <text x="980" y="328" font-size="13" fill="#8A9BB5">Blocks bad merges</text>
+  </g>
+  <line x1="1020" y1="166" x2="1020" y2="210" stroke="#7C8CFF" stroke-width="2" marker-end="url(#arrowIndigo)"/>
+  <line x1="1020" y1="210" x2="320" y2="210" stroke="#7C8CFF" stroke-width="2"/>
+  <line x1="320" y1="210" x2="320" y2="248" stroke="#7C8CFF" stroke-width="2" marker-end="url(#arrowIndigo)"/>
+  <line x1="320" y1="298" x2="378" y2="298" stroke="#00E5A0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="660" y1="298" x2="718" y2="298" stroke="#00E5A0" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="920" y1="298" x2="958" y2="298" stroke="#00E5A0" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- Footnote -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="13">
+    <text x="40" y="410" fill="#8A9BB5">No mocks. No “looks fine to me”. Every check executes against a running build.</text>
+    <text x="40" y="436" fill="#8A9BB5">Open source: kovamesh-verify CLI runs the same checks locally and in CI. MIT licensed.</text>
+    <rect x="40" y="462" width="1120" height="1" fill="#24344F"/>
+    <text x="40" y="492" fill="#00E5A0">kovamesh.dev  ·  github.com/bntam/kovamesh-verify  ·  ngoctam.699@gmail.com</text>
+  </g>
+</svg>

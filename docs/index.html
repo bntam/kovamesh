@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quickstart — KovaMesh Docs</title>
+<meta name="description" content="Install kovamesh-verify, write your first kovamesh.yaml, run it locally and in GitHub Actions. 90 seconds from install to first verified signal.">
+<meta property="og:title" content="Quickstart — KovaMesh Docs">
+<meta property="og:description" content="Install kovamesh-verify, write your first kovamesh.yaml, run it locally and in GitHub Actions.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bntam.github.io/kovamesh/docs/">
+<meta property="og:image" content="https://bntam.github.io/kovamesh/assets/opengraph-1200x630.png">
+<link rel="icon" type="image/svg+xml" href="../assets/logo-mark.svg">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="../"><img src="../assets/logo-mark.svg" alt="KovaMesh logo" width="30" height="30"> KovaMesh</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="../#product">Product</a>
+      <a href="../#architecture">Architecture</a>
+      <a href="../#benchmarks">Benchmarks</a>
+      <a href="../#pricing">Pricing</a>
+      <a href="./">Docs</a>
+      <a href="https://github.com/bntam/kovamesh-verify">GitHub</a>
+      <a class="btn btn-primary btn-sm nav-cta" href="../#pricing">Get started free</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="page">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="../">Home</a> / Docs / Quickstart</p>
+    <h1>Quickstart</h1>
+    <p class="lede">90 seconds from install to your first verified signal. The CLI is open source (MIT) at <a href="https://github.com/bntam/kovamesh-verify">github.com/bntam/kovamesh-verify</a>.</p>
+
+    <h2>1. Install the CLI</h2>
+    <p>Requires Python 3.9 or newer. Use <code>pipx</code> for an isolated install (recommended), or plain <code>pip</code>:</p>
+<pre>pipx install kovamesh-verify
+# or
+pip install kovamesh-verify
+
+kovamesh-verify --version
+# kovamesh-verify 0.1.0</pre>
+    <p class="muted">From source: <code>git clone https://github.com/bntam/kovamesh-verify.git</code>, then <code>pip install -e .</code> in the repo root.</p>
+
+    <h2>2. Write a spec — <code>kovamesh.yaml</code></h2>
+    <p>One file describes what “working” means for your app. Checks run against a real running build, not against the source text:</p>
+<pre>name: my-app-smoke
+base_url: http://localhost:3000
+timeout_seconds: 10
+checks:
+  - name: app boots
+    type: http
+    path: /health
+    expect_status: 200
+  - name: login works
+    type: http
+    path: /api/auth/login
+    method: POST
+    body: {"email": "smoke@example.com", "password": "smoke-only"}
+    expect_status: 200
+    expect_json: {"ok": true}
+  - name: no 500s in logs
+    type: log
+    pattern: " 500 "
+    expect_absent: true</pre>
+    <p class="muted">Check types: <code>http</code> (status, JSON body, response time), <code>build</code> (a shell command must exit 0), <code>log</code> (a pattern must be present or absent). See the repo <code>README.md</code> and <code>examples/</code> for the full reference.</p>
+
+    <h2>3. Run it</h2>
+<pre># start your app first, then:
+kovamesh-verify run --spec kovamesh.yaml
+
+# against a different base URL:
+kovamesh-verify run --spec kovamesh.yaml --base-url https://staging.example.com
+
+# machine-readable verdict:
+kovamesh-verify run --spec kovamesh.yaml --json verdict.json</pre>
+    <p>A passing run prints <code>VERDICT: PASS</code> and exits 0. A failing run prints the exact failing check, the response it got, and exits 1 — so CI can block the merge.</p>
+
+    <h2>4. Run it in GitHub Actions</h2>
+    <p>Add this job to <code>.github/workflows/verify.yml</code>. It installs the CLI, starts your app, and runs the spec on every pull request:</p>
+<pre>name: Verify PR at runtime
+on:
+  pull_request:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install kovamesh-verify
+      - run: npm ci &amp;&amp; npm run build
+      - run: npm start &amp; sleep 5
+      - run: kovamesh-verify run --spec kovamesh.yaml</pre>
+    <p class="muted">The workflow in the <code>kovamesh-verify</code> repo itself (<code>.github/workflows/ci.yml</code>) runs the CLI’s own unit tests on every push — the same pattern, applied to itself.</p>
+
+    <h2>Exit codes</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Exit code</th><th scope="col">Meaning</th><th scope="col">What to do</th></tr></thead>
+        <tbody>
+          <tr><td><code>0</code></td><td>All checks passed</td><td>Merge with confidence; the verdict is in the evidence bundle.</td></tr>
+          <tr><td><code>1</code></td><td>One or more checks failed</td><td>Read the failing check’s output — it names the exact step and response.</td></tr>
+          <tr><td><code>2</code></td><td>Spec or usage error</td><td>Check the YAML (unknown check type, bad URL, missing file) and re-run.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>FAQ</h2>
+    <h3>Does the CLI send my code anywhere?</h3>
+    <p>No. <code>kovamesh-verify</code> runs entirely on your machine or in your CI runner. It only makes HTTP requests to the <code>base_url</code> you specify. The hosted KovaMesh loop (Startup / Enterprise) is a separate service and only receives the evidence bundle you choose to post.</p>
+    <h3>Can I use it without Docker?</h3>
+    <p>Yes. The CLI itself needs no Docker — it checks whatever app you have running. Docker is how the hosted loop isolates each PR run in a fresh sandbox; locally, you start the app however you normally do.</p>
+    <h3>What if a check is flaky?</h3>
+    <p>Don’t re-run the whole suite blind. Run <code>kovamesh-verify triage</code> (hosted) or check the 30-day history in the verdict: if the same check failed without a reproducing commit, quarantine it, file the evidence, and keep shipping. That’s the workflow in the <a href="../#demo">CI triage demo</a>.</p>
+
+    <h2>Next steps</h2>
+    <ul>
+      <li>Browse the <a href="https://github.com/bntam/kovamesh-verify">kovamesh-verify repo</a> — README, examples, and unit tests.</li>
+      <li>Try the <a href="../#demo">interactive demo</a> to see PR verification, smoke tests, and triage end to end.</li>
+      <li>Questions or a bug? Open an issue on GitHub, or write to <a href="mailto:ngoctam.699@gmail.com">ngoctam.699@gmail.com</a>.</li>
+    </ul>
+    <p class="small muted">Docs last updated 21 November 2026. CLI version 0.1.0.</p>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand foot-brand" href="../"><img src="../assets/logo-mark.svg" alt="KovaMesh logo" width="30" height="30"> KovaMesh</a>
+        <p class="muted small foot-tag">Multi-agent QA that actually runs your code. Every PR, verified at runtime.</p>
+        <p class="small"><a href="mailto:ngoctam.699@gmail.com">ngoctam.699@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="../#product">Product</a>
+        <a href="../#architecture">Architecture</a>
+        <a href="../#benchmarks">Benchmarks</a>
+        <a href="../#pricing">Pricing</a>
+        <a href="./">Docs / Quickstart</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="https://github.com/bntam">GitHub — github.com/bntam</a>
+        <a href="https://www.linkedin.com/company/kovamesh">LinkedIn — /company/kovamesh</a>
+        <a href="https://x.com/kovameshdev">X — @kovameshdev</a>
+        <a href="../privacy/">Privacy Policy</a>
+        <a href="../terms/">Terms of Service</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 KovaMesh. All rights reserved.</span>
+      <span>Ho Chi Minh City, Vietnam · Built for global dev teams</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

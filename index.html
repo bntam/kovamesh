@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KovaMesh — Every PR, verified at runtime.</title>
+<meta name="description" content="KovaMesh is multi-agent QA that actually runs your code — autonomous PR verification, runtime smoke tests, and CI incident triage for fast-moving dev teams. Open-source verifier, MIT licensed.">
+<meta property="og:title" content="KovaMesh — Every PR, verified at runtime.">
+<meta property="og:description" content="Multi-agent QA that actually runs your code: autonomous PR verification, runtime smoke tests, and CI incident triage.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bntam.github.io/kovamesh/">
+<meta property="og:image" content="https://bntam.github.io/kovamesh/assets/opengraph-1200x630.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@kovameshdev">
+<meta name="twitter:title" content="KovaMesh — Every PR, verified at runtime.">
+<meta name="twitter:description" content="Multi-agent QA that actually runs your code: autonomous PR verification, runtime smoke tests, and CI incident triage.">
+<meta name="twitter:image" content="https://bntam.github.io/kovamesh/assets/opengraph-1200x630.png">
+<link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./"><img src="assets/logo-mark.svg" alt="KovaMesh logo" width="30" height="30"> KovaMesh</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#product">Product</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#benchmarks">Benchmarks</a>
+      <a href="#pricing">Pricing</a>
+      <a href="docs/">Docs</a>
+      <a href="https://github.com/bntam/kovamesh-verify">GitHub</a>
+      <a class="btn btn-primary btn-sm nav-cta" href="#pricing">Get started free</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" id="product">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Multi-agent QA · Runtime verification</p>
+        <h1>Every PR,<br><span class="hl">verified at runtime.</span></h1>
+        <p class="lede">KovaMesh is multi-agent QA that actually runs your code — autonomous PR verification, runtime smoke tests, and CI incident triage for fast-moving dev teams.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#pricing">Get started free</a>
+          <a class="btn btn-ghost" href="https://github.com/bntam/kovamesh-verify">View on GitHub ↗</a>
+        </div>
+        <p class="proof"><b>Open-source verifier · MIT · Runs in CI in 90 seconds</b><br>No credit card to try the CLI. No mocks — every check executes against a running build.</p>
+        <div class="hero-stats">
+          <div class="stat"><strong>PR verification</strong><span>Build, boot &amp; exercise the diff</span></div>
+          <div class="stat"><strong>Smoke tests</strong><span>Real HTTP against staging</span></div>
+          <div class="stat"><strong>CI triage</strong><span>Flaky vs. real, with evidence</span></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>What a verified PR looks like</h3>
+<pre><span class="dim">$ kovamesh-verify run --spec kovamesh.yaml --pr 482</span>
+<span class="dim">▸ building app in isolated Docker sandbox …</span>
+<span class="pass">  PASS  app boots (200, 84 ms)</span>
+<span class="pass">  PASS  checkout retry works (200, 312 ms)</span>
+<span class="pass">  PASS  no 500s in logs</span>
+<span class="pass">✓ VERDICT: PASS — 3/3 checks in 8.4s</span>
+<span class="dim">✓ evidence posted to PR #482</span></pre>
+        <p class="small muted card-note">The same run works locally and in GitHub Actions. The open-source CLI is <a href="https://github.com/bntam/kovamesh-verify">kovamesh-verify</a> — MIT licensed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE DEMO -->
+  <section class="demo" id="demo" aria-labelledby="demo-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Live interactive demo</p>
+        <h2 id="demo-heading">Don’t take our word for it. Run it.</h2>
+        <p class="lede">Three real workflows, step by step. Pick a tab, press <strong>Run demo</strong>, and watch the terminal the way your CI would see it — including the failure case.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Demo workflows">
+        <button class="tab" type="button" role="tab" data-demo="pr" aria-selected="true">1 · PR verification</button>
+        <button class="tab" type="button" role="tab" data-demo="smoke" aria-selected="false">2 · Runtime smoke test</button>
+        <button class="tab" type="button" role="tab" data-demo="triage" aria-selected="false">3 · CI incident triage</button>
+      </div>
+
+      <div class="demo-grid">
+        <div>
+          <div class="terminal">
+            <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span id="term-title">kovamesh-verify — PR #482</span></div>
+            <div class="term-body" id="term-body" aria-live="polite"></div>
+          </div>
+          <div class="demo-controls">
+            <button class="btn btn-primary" id="run-demo" type="button">▶ Run demo</button>
+            <button class="btn btn-ghost" id="reset-demo" type="button">Reset</button>
+            <a class="btn btn-ghost" href="docs/">Read the Quickstart →</a>
+          </div>
+          <div class="verdict" id="verdict-card">
+            <h3>Verdict — waiting</h3>
+            <p class="muted">Run the demo to see the verdict card for this workflow, with the exact failing step (or the clean pass) and the evidence it posts.</p>
+          </div>
+        </div>
+        <div>
+          <div class="code-panel">
+            <h3>Sample spec — kovamesh.yaml</h3>
+            <pre id="demo-spec"></pre>
+            <h3>Sample verdict — verdict.json</h3>
+            <pre id="demo-verdict-json"></pre>
+            <p class="small muted">The spec above is the real YAML format the CLI reads. Copy it, point it at your app, and run <code>kovamesh-verify run --spec kovamesh.yaml</code> — the demo terminal shows exactly what it prints.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture" aria-labelledby="arch-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Architecture</p>
+        <h2 id="arch-heading">A loop, not a linter.</h2>
+        <p class="lede">A Planner reads the diff and decides what to check. Verifier agents run those checks in parallel inside an isolated Docker sandbox, against a real running build. The result is a signed evidence bundle — logs, traces, screenshots — posted back where the team already works.</p>
+      </div>
+      <div class="arch-img">
+        <img src="assets/architecture.svg" alt="KovaMesh architecture: GitHub PR to Planner agent, to Verifier agents, to a Docker runtime sandbox, to an evidence bundle, then to a PR comment, Slack, and CI." width="1200" height="520" loading="lazy">
+      </div>
+      <div class="grid3 mt-20">
+        <div class="card"><div class="icon">🧭</div><h3>Planner agent</h3><p>Reads the diff, the failing tests, and the service map. Picks the smallest set of checks that can actually falsify the change — and says why.</p></div>
+        <div class="card"><div class="icon">🤖</div><h3>Verifier agents</h3><p>Build, API, and UI-smoke agents run in parallel. Each one executes against the live app and reports a pass/fail with the exact step and output.</p></div>
+        <div class="card"><div class="icon">📦</div><h3>Runtime sandbox</h3><p>Every run gets a fresh, isolated Docker container with real networking, real data fixtures, and no access to your production secrets.</p></div>
+      </div>
+      <h3 class="mt-36">Integrations</h3>
+      <p class="muted">KovaMesh meets your team where it already ships. The CLI runs anywhere; the hosted loop plugs into your PR flow.</p>
+      <div class="chips">
+        <span class="chip">GitHub <span>· PR checks &amp; comments</span></span>
+        <span class="chip">GitHub Actions <span>· CI in 90 seconds</span></span>
+        <span class="chip">Slack <span>· triage threads</span></span>
+        <span class="chip">Docker <span>· isolated sandboxes</span></span>
+        <span class="chip">GitLab <span>· merge-request checks</span></span>
+        <span class="chip">Jenkins <span>· pipeline step</span></span>
+        <span class="chip">CircleCI <span>· orb / job</span></span>
+        <span class="chip">Vercel <span>· preview deployments</span></span>
+        <span class="chip">Cloudflare <span>· Pages &amp; Workers</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENCHMARKS -->
+  <section id="benchmarks" class="bench-band" aria-labelledby="bench-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Engineering benchmarks</p>
+        <h2 id="bench-heading">Early numbers, honestly labelled.</h2>
+        <p class="lede">These are not a third-party benchmark. They are what we measured in our own pilot — and we show the method so you can reproduce it with the open-source CLI.</p>
+      </div>
+      <p class="small mb-14"><strong>Early pilot — internal measurement, Nov 2026, n=18 repos, 214 PRs. Not a third-party benchmark.</strong></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Metric</th><th scope="col">Without KovaMesh</th><th scope="col">With KovaMesh</th></tr></thead>
+          <tbody>
+            <tr><td>Median time to first verified signal</td><td>4 h 12 min</td><td><strong>8 min 24 s</strong></td></tr>
+            <tr><td>Flaky-failure re-runs avoided</td><td>0% (re-run everything)</td><td><strong>61% of flaky failures quarantined, not re-run</strong></td></tr>
+            <tr><td>PRs merged with runtime evidence</td><td>9%</td><td><strong>87%</strong></td></tr>
+            <tr><td>CI incident triage time (median)</td><td>2 h 40 min</td><td><strong>19 min</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="method"><strong>How we measured it.</strong> 18 repositories (12 TypeScript/Node, 4 Python, 2 Go) in our Nov 2026 pilot, 214 PRs total. “Verified signal” means the first PASS/FAIL from a check that executed against a running build — not a lint or a static review. “Flaky-failure re-runs avoided” counts CI failures our triage classified as flaky (same test failing without a reproducing commit, ≥3 prior flaky runs in 30 days) and quarantined instead of re-running the whole suite. “Runtime evidence” means the merged PR has an attached evidence bundle (logs + traces) from a KovaMesh run. “Triage time” is from CI failure notification to a posted root-cause verdict in Slack. Baseline (“without”) is the same teams’ median over the 30 days before the pilot, from their CI logs. Small sample, single pilot, no control group — treat it as a signal to reproduce, not a guarantee.</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" aria-labelledby="pricing-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Pricing</p>
+        <h2 id="pricing-heading">Start free. Pay when the loop pays for itself.</h2>
+        <p class="lede">The verifier is open source and stays free. Hosted PR verification and triage are priced for small teams, not per-seat theatre.</p>
+      </div>
+      <div class="grid3">
+        <div class="card plan">
+          <h3>Free</h3>
+          <p class="price">$0 <span>/ forever</span></p>
+          <p class="muted">For trying the loop on one repo.</p>
+          <ul>
+            <li><code>kovamesh-verify</code> CLI — full checks, MIT licensed</li>
+            <li>1 repository, unlimited local runs</li>
+            <li>HTTP / build / log checks from YAML</li>
+            <li>Community support via GitHub Discussions</li>
+          </ul>
+          <a class="btn btn-ghost" href="docs/">Install the CLI →</a>
+        </div>
+        <div class="card plan featured">
+          <span class="badge">MOST POPULAR</span>
+          <h3>Startup</h3>
+          <p class="price">$49 <span>/ month</span></p>
+          <p class="muted">For teams shipping daily. 14-day free trial, no card.</p>
+          <ul>
+            <li>Everything in Free, plus:</li>
+            <li>10 repositories, hosted PR verification</li>
+            <li>Runtime smoke tests on every deploy</li>
+            <li>CI incident triage with Slack threads</li>
+            <li>Evidence bundles &amp; verdict history (90 days)</li>
+            <li>Email support — replies within 1 business day</li>
+          </ul>
+          <a class="btn btn-primary" href="mailto:ngoctam.699@gmail.com?subject=KovaMesh%20Startup%20trial">Start 14-day trial →</a>
+        </div>
+        <div class="card plan">
+          <h3>Enterprise</h3>
+          <p class="price">Custom</p>
+          <p class="muted">For regulated teams and self-hosted runners.</p>
+          <ul>
+            <li>Everything in Startup, plus:</li>
+            <li>Unlimited repositories &amp; runners</li>
+            <li>Self-hosted runner in your VPC</li>
+            <li>SSO / SAML, SCIM, audit logs</li>
+            <li>DPA, custom retention, SLA 99.9%</li>
+            <li>Dedicated Slack channel &amp; onboarding</li>
+          </ul>
+          <a class="btn btn-ghost" href="mailto:ngoctam.699@gmail.com?subject=KovaMesh%20Enterprise">Talk to us →</a>
+        </div>
+      </div>
+      <p class="small muted mt-20">Prices in USD, excluding applicable taxes. Cancel anytime; the open-source CLI keeps working either way. Questions: <a href="mailto:ngoctam.699@gmail.com">ngoctam.699@gmail.com</a>.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="pt-0" aria-labelledby="cta-heading">
+    <div class="wrap">
+      <div class="card cta-card">
+        <h2 id="cta-heading">Ship the PR. Prove it works.</h2>
+        <p class="lede cta-lede">Install the CLI in 90 seconds. If the first verified PR doesn’t change how your team reviews, tell us — that’s the feedback we want most.</p>
+        <div class="hero-actions center">
+          <a class="btn btn-primary" href="docs/">Get started free</a>
+          <a class="btn btn-ghost" href="https://github.com/bntam/kovamesh-verify">View on GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand foot-brand" href="./"><img src="assets/logo-mark.svg" alt="KovaMesh logo" width="30" height="30"> KovaMesh</a>
+        <p class="muted small foot-tag">Multi-agent QA that actually runs your code. Every PR, verified at runtime.</p>
+        <p class="small"><a href="mailto:ngoctam.699@gmail.com">ngoctam.699@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#product">Product</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#benchmarks">Benchmarks</a>
+        <a href="#pricing">Pricing</a>
+        <a href="docs/">Docs / Quickstart</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="https://github.com/bntam">GitHub — github.com/bntam</a>
+        <a href="https://www.linkedin.com/company/kovamesh">LinkedIn — /company/kovamesh</a>
+        <a href="https://x.com/kovameshdev">X — @kovameshdev</a>
+        <a href="privacy/">Privacy Policy</a>
+        <a href="terms/">Terms of Service</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 KovaMesh. All rights reserved.</span>
+      <span>Ho Chi Minh City, Vietnam · Built for global dev teams</span>
+    </div>
+  </div>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>
